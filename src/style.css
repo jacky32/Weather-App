@@ -8,6 +8,9 @@ body {
   height: 100vh;
   display: grid;
   grid-template-rows: 100px 1fr 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 header {
@@ -24,6 +27,11 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#box {
+  background-color: rgba(240, 248, 255, 0.747);
+  padding: 20px;
 }
 
 footer {

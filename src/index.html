@@ -7,15 +7,24 @@
   <body>
     <header></header>
     <section>
-      <div id="output">
-        <div id="output-city"></div>
-        <div id="output-temp"></div>
-        <div id="output-weather-description"></div>
-        <div id="output-humidity"></div>
-      </div>
-      <div>
-        <label for="city-input">City:</label>
-        <input type="text" name="City" id="city-input" />
+      <div id="box">
+        <div class="" id="div-temp"><span id="output-temp"></span> °C</div>
+        <div class="" id="div-city"><span id="output-city"></span></div>
+        <div class="" id="div-desc">
+          <span id="output-weather-description"></span>
+        </div>
+        <div class="" id="div-humid">
+          Humidity: <span id="output-humidity"></span> %
+        </div>
+        <form autocomplete="off">
+          <div>
+            <label for="city-input">City:</label>
+            <input type="text" name="City" id="city-input" />
+          </div>
+          <div>
+            <input type="submit" value="Search" />
+          </div>
+        </form>
       </div>
     </section>
     <footer></footer>

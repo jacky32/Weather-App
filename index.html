@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Weather App</title>
+  <script defer src="main.bundle.js"></script></head>
+  <body>
+    <header></header>
+    <section>
+      <div id="box">
+        <div class="" id="div-city">
+          <span id="output-city"></span>, <span id="output-state"></span>
+        </div>
+        <div class="" id="div-temp"><span id="output-temp"></span> °C</div>
+        <div class="" id="div-desc">
+          <span id="output-weather-description"></span>
+        </div>
+        <div class="" id="div-humid">
+          Humidity: <span id="output-humidity"></span> %
+        </div>
+
+        <form autocomplete="off" id="city-form">
+          <div class="autocomplete">
+            <input type="text" name="City" id="city-input" placeholder="city" />
+          </div>
+          <input type="submit" value="Search" />
+        </form>
+      </div>
+    </section>
+    <footer></footer>
+  </body>
+</html>

@@ -55,10 +55,8 @@ export const autocomplete = (inp) => {
       addActive(items);
     } else if (e.keyCode == 13) {
       // enter
-      e.preventDefault();
       if (currentFocus > -1) {
         if (items) items[currentFocus].click();
-        // TODO: connect
       }
     }
   });

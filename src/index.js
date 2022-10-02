@@ -1,14 +1,30 @@
 import "./style.css";
 import { autocomplete } from "./autocomplete";
 
-const WEATHER_API_KEY = "3a6f70508651c854d613ffe499c8360a";
-const lat = "49.820923";
-const lon = "18.262524";
-const city = "Ostrava,Poruba";
+const BING = process.env.BING;
+const WEATHER = process.env.WEATHER;
 
+const city = "Ostrava";
+
+// main function, retrieves all data based on user input
+const submitCity = async () => {
+  const geolocation = await getGeolocation(citySelect.value);
+  const weatherData = await getWeatherData(geolocation.lat, geolocation.lon);
+  addToDOM(
+    geolocation.name,
+    geolocation.state,
+    weatherData.temp,
+    weatherData.weatherDesc,
+    weatherData.humidity
+  );
+  getBackgroundImage(geolocation.name);
+  citySelect.value = "";
+};
+
+// retrieves weather data
 const getWeatherData = async (lat, lon) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`,
+    `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${WEATHER}`,
     { mode: "cors" }
   );
   const data = await response.json();
@@ -20,6 +36,7 @@ const getWeatherData = async (lat, lon) => {
   return { temp, weatherDesc, humidity };
 };
 
+// updates weather data in DOM
 const addToDOM = (city, state, temp, weatherDesc, humidity) => {
   const outputCity = document.getElementById("output-city");
   const outputState = document.getElementById("output-state");
@@ -36,41 +53,56 @@ const addToDOM = (city, state, temp, weatherDesc, humidity) => {
   outputHumidity.textContent = humidity;
 };
 
+// retrieves background image based on given city
+// currently bing 1000/per month
 const getBackgroundImage = async (city) => {
-  const response = await fetch(`https://imsea.herokuapp.com/api/1?q=${city}`, {
-    mode: "cors",
-  });
+  // const response = await fetch(`https://imsea.herokuapp.com/api/1?q=${city}`, {
+  //   mode: "cors",
+  // });
+  // const response = await fetch(
+  //   `https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${city} city&pageNumber=1&pageSize=10&autoCorrect=true`,
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       "X-RapidAPI-Key": "",
+  //       "X-RapidAPI-Host": "contextualwebsearch-websearch-v1.p.rapidapi.com",
+  //     },
+  //   }
+  // );
+  const response = await fetch(
+    `https://bing-image-search1.p.rapidapi.com/images/search?q=${city}&count=1`,
+    {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": BING,
+        "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
+      },
+    }
+  );
   const imagesData = await response.json();
-  addCityImageToDOM(imagesData);
+  addCityImageToDOM(imagesData.value[0].contentUrl);
 };
 
+// sets city image as a background
 const addCityImageToDOM = (data) => {
-  const cityImageURL = data.results[0];
+  const cityImageURL = data;
   document.querySelector(
     "section"
   ).style.backgroundImage = `url('${cityImageURL}')`;
 };
 
+// adds a listener to user city input
 const citySelect = document.getElementById("city-input");
 const inputForm = document.getElementById("city-form");
 inputForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const geolocation = await getGeolocation(citySelect.value);
-  const weatherData = await getWeatherData(geolocation.lat, geolocation.lon);
-  addToDOM(
-    geolocation.name,
-    geolocation.state,
-    weatherData.temp,
-    weatherData.weatherDesc,
-    weatherData.humidity
-  );
-  getBackgroundImage(geolocation.name);
-  citySelect.value = "";
+  submitCity();
 });
 
+// retrieves geolocation data based on given city
 const getGeolocation = async (city) => {
   const response = await fetch(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${WEATHER_API_KEY}`,
+    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${WEATHER}`,
     { mode: "cors" }
   );
   const regionNamesInEnglish = new Intl.DisplayNames(["en"], {
@@ -84,6 +116,7 @@ const getGeolocation = async (city) => {
   return { name, state, lat, lon };
 };
 
+// activate autocomplete
 autocomplete(citySelect);
 
 // default script

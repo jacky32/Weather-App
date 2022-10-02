@@ -1,8 +1,12 @@
-export const autocomplete = (inp, arr) => {
+import citiesData from "./cities.json";
+
+const mapped = citiesData.map((city) => city.name);
+
+export const autocomplete = (inp) => {
   let currentFocus;
+  const arr = mapped;
   inp.addEventListener("input", (e) => {
     const inputValue = inp.value;
-
     closeAllLists();
     if (!inputValue) return false;
 

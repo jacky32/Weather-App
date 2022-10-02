@@ -70,7 +70,7 @@ inputForm.addEventListener("submit", async (e) => {
 
 const getGeolocation = async (city) => {
   const response = await fetch(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&&appid=${WEATHER_API_KEY}`,
+    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${WEATHER_API_KEY}`,
     { mode: "cors" }
   );
   const regionNamesInEnglish = new Intl.DisplayNames(["en"], {
@@ -84,7 +84,7 @@ const getGeolocation = async (city) => {
   return { name, state, lat, lon };
 };
 
-autocomplete(citySelect, ["Czechia", "Czele", "Czucge", "Slovakia"]);
+autocomplete(citySelect);
 
 // default script
 getBackgroundImage(city);

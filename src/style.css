@@ -8,9 +8,6 @@ body {
   height: 100vh;
   display: grid;
   grid-template-rows: 100px 1fr 100px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 header {
@@ -22,15 +19,20 @@ header {
 }
 
 section {
-  width: 100%;
+  justify-self: center;
+  width: 900px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #box {
   background-color: rgba(240, 248, 255, 0.747);
+  margin-bottom: 40%;
   padding: 20px;
 }
 
@@ -40,4 +42,28 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+input[type="submit"] {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  font-family: sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 27px;
+  min-width: 54px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+form,
+form > div,
+#box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 }

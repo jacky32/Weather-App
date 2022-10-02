@@ -1,4 +1,5 @@
 import "./style.css";
+import { autocomplete } from "./autocomplete";
 
 const WEATHER_API_KEY = "3a6f70508651c854d613ffe499c8360a";
 const lat = "49.820923";
@@ -82,6 +83,8 @@ const getGeolocation = async (city) => {
   const lon = geolocation.lon;
   return { name, state, lat, lon };
 };
+
+autocomplete(citySelect, ["Czechia", "Czele", "Czucge", "Slovakia"]);
 
 // default script
 getBackgroundImage(city);

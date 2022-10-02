@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "gh-pages": "^4.0.0"
   }
 }

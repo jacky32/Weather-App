@@ -1,8 +1,8 @@
 import "./style.css";
 import { autocomplete } from "./autocomplete";
 
-const BING = process.env.BING;
-const WEATHER = process.env.WEATHER;
+const BING = BING_API;
+const WEATHER = WEATHER_API;
 
 const city = "Ostrava";
 

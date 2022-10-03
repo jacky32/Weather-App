@@ -1,6 +1,5 @@
 import "./style.css";
 import { autocomplete } from "./autocomplete";
-import icon from "../components/wi-day-cloudy.svg";
 
 const BING = process.env.BING_API;
 const WEATHER = process.env.WEATHER_API;

@@ -16,8 +16,8 @@ jobs:
           npm install
           npm run-script build
         env:
-          BING: ${{ secrets.BING_API }}
-          WEATHER: ${{ secrets.WEATHER_API }}
+          BING_API: ${{ secrets.BING_API }}
+          WEATHER_API: ${{ secrets.WEATHER_API }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.0.0

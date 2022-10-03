@@ -15,7 +15,6 @@ jobs:
         run: |
           npm install
           npm run-script build
-          echo "WEATHER: ${{ secrets.WEATHER_API }}"
         env:
           BING_API: ${{ secrets.BING_API }}
           WEATHER_API: ${{ secrets.WEATHER_API }}

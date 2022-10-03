@@ -26,22 +26,6 @@ const submitCity = async () => {
   citySelect.value = "";
 };
 
-// retrieves weather data
-const getWeatherData = async (lat, lon) => {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${WEATHER}`,
-    { mode: "cors" }
-  );
-  const data = await response.json();
-
-  const temp = data.main.temp;
-  const humidity = data.main.humidity;
-  const wind = data.wind.speed;
-  const icon = data.weather[0].icon;
-
-  return { temp, wind, humidity, icon };
-};
-
 const getFutureWeatherData = async (lat, lon) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?units=metric&cnt=40&lat=${lat}&lon=${lon}&appid=${WEATHER}`,

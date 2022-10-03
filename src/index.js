@@ -114,21 +114,6 @@ const addWeatherData = (
           console.log(item);
           break;
       }
-
-      // if (item.classList.contains("day-name")) {
-      //   item.textContent = dayNames[i];
-      // } else if (item.classList.contains("day-temp")) {
-      //   item.textContent = `${dayTemps[i]}`.substring(0, 4) + " °C";
-      // } else if (item.classList.contains("day-humid")) {
-      //   item.textContent = dayHumids[i] + " %";
-      // } else if (item.classList.contains("day-wind")) {
-      //   item.textContent = `${dayWinds[i]}`.substring(0, 3) + " km/h";
-      // } else if (item.classList.contains("day-icon")) {
-      //   const icon = `<img src="https://openweathermap.org/img/wn/${dayIcons[i]}@2x.png" alt="weather icon"/>`;
-      //   item.innerHTML = icon;
-      // } else {
-      //   console.log(item);
-      // }
     });
   }
 };

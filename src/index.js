@@ -4,7 +4,7 @@ import { autocomplete } from "./autocomplete";
 const BING = process.env.BING_API;
 const WEATHER = process.env.WEATHER_API;
 
-const city = "Ostrava";
+const city = "Ostrava, Poruba";
 
 // main function, retrieves all data based on user input
 const submitCity = async () => {

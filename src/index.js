@@ -9,14 +9,18 @@ const city = "Ostrava";
 // main function, retrieves all data based on user input
 const submitCity = async () => {
   const geolocation = await getGeolocation(citySelect.value);
-  const weatherData = await getWeatherData(geolocation.lat, geolocation.lon);
-  addTodayWeatherData(
+  const weatherData = await getFutureWeatherData(
+    geolocation.lat,
+    geolocation.lon
+  );
+  addWeatherData(
     geolocation.name,
     geolocation.state,
-    weatherData.temp,
-    weatherData.wind,
-    weatherData.humidity,
-    weatherData.icon
+    weatherData.dayNames,
+    weatherData.temps,
+    weatherData.winds,
+    weatherData.humids,
+    weatherData.icons
   );
   getBackgroundImage(geolocation.name);
   citySelect.value = "";
@@ -38,48 +42,76 @@ const getWeatherData = async (lat, lon) => {
   return { temp, wind, humidity, icon };
 };
 
-// updates weather data in DOM
-const addTodayWeatherData = (city, state, temp, wind, humidity, iconData) => {
-  const outputCity = document.getElementById("output-city");
-  const outputState = document.getElementById("output-state");
-  const outputTemp = document.getElementById("output-temp");
-  const outputWind = document.getElementById("output-wind");
-  const outputHumidity = document.getElementById("output-humidity");
-  const outputIcon = document.getElementById("today-icon");
+const getFutureWeatherData = async (lat, lon) => {
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/forecast?units=metric&cnt=40&lat=${lat}&lon=${lon}&appid=${WEATHER}`,
+    { mode: "cors" }
+  );
+  const listedData = await response.json();
+  const unsortedData = listedData.list;
+  const data = unsortedData.filter((day) => {
+    const date = new Date(day.dt_txt);
+    const today = new Date(Date.now());
+    if (
+      date.getDay() == today.getDay() &&
+      date.getHours() == today.getHours()
+    ) {
+      return true;
+    }
+    const hour = date.getHours();
+    return hour == 12;
+  });
+  const dayNames = data.map((day) => {
+    const date = new Date(day.dt_txt);
+    const today = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(
+      date
+    );
+    return today;
+  });
+  const temps = data.map((day) => day.main.temp);
+  const winds = data.map((day) => day.wind.speed);
+  const humids = data.map((day) => day.main.humidity);
+  const icons = data.map((day) => day.weather[0].icon);
 
-  const icon = `<img src="https://openweathermap.org/img/wn/${iconData}@2x.png" alt="weather icon"/>`;
-
-  outputCity.textContent = city;
-  outputState.textContent = state;
-  outputTemp.textContent = temp;
-  outputWind.textContent = wind;
-  outputHumidity.textContent = humidity;
-  outputIcon.innerHTML = icon;
+  return { temps, winds, humids, icons, dayNames };
 };
 
-const addFutureWeatherData = (dayName, dayTemp, dayHumid, dayWind, dayIcon) => {
+const addWeatherData = (
+  cityName,
+  countryName,
+  dayNames,
+  dayTemps,
+  dayWinds,
+  dayHumids,
+  dayIcons
+) => {
+  const outputCity = document.getElementById("output-city");
+  const outputCountry = document.getElementById("output-state");
+  outputCity.textContent = cityName;
+  outputCountry.textContent = countryName;
+
   const days = document.getElementsByClassName("day");
+
   for (let i = 0; i < days.length; i++) {
     days[i].childNodes.forEach((item) => {
       if (item.nodeType == 3) return;
       if (item.classList.contains("day-name")) {
-        item.textContent = dayName;
+        item.textContent = dayNames[i];
       } else if (item.classList.contains("day-temp")) {
-        item.textContent = dayTemp + " °C";
+        item.textContent = dayTemps[i] + " °C";
       } else if (item.classList.contains("day-humid")) {
-        item.textContent = dayHumid + " %";
+        item.textContent = dayHumids[i] + " %";
       } else if (item.classList.contains("day-wind")) {
-        item.textContent = dayWind + " km/h";
+        item.textContent = dayWinds[i] + " km/h";
       } else if (item.classList.contains("day-icon")) {
-        item.innerHTML = dayIcon;
+        const icon = `<img src="https://openweathermap.org/img/wn/${dayIcons[i]}@2x.png" alt="weather icon"/>`;
+        item.innerHTML = icon;
       } else {
         console.log(item);
       }
     });
   }
 };
-
-addFutureWeatherData("Monday", "23", "78", "23", "");
 
 // retrieves background image based on given city
 const getBackgroundImage = async (city) => {
@@ -154,15 +186,16 @@ autocomplete(citySelect);
 getBackgroundImage(city);
 const geolocation = getGeolocation(city);
 geolocation.then((gData) => {
-  const wData = getWeatherData(gData.lat, gData.lon);
+  const wData = getFutureWeatherData(gData.lat, gData.lon);
   wData.then((dat) => {
-    addTodayWeatherData(
+    addWeatherData(
       gData.name,
       gData.state,
-      dat.temp,
-      dat.wind,
-      dat.humidity,
-      dat.icon
+      dat.dayNames,
+      dat.temps,
+      dat.winds,
+      dat.humids,
+      dat.icons
     );
   });
 });

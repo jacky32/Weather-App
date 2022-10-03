@@ -40,25 +40,16 @@ section {
 #box {
   background-color: rgb(226, 226, 226);
   position: absolute;
-  top: 30vh;
+  top: 10vh;
   padding: 20px;
   border-radius: 4px;
+  max-width: 80vw;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 8px;
-}
-
-.day-icon {
-  width: 60px;
-  height: 60px;
-  overflow: hidden;
-}
-
-img {
-  margin: -20px;
 }
 
 #div-city > * {
@@ -72,12 +63,42 @@ img {
 
 #forecast {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
   gap: 16px;
 }
 
-#forecast > div {
+#future {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  overflow: auto;
+}
+
+.day {
   text-align: center;
+  background-color: rgb(216, 216, 216);
+  border-radius: 4px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#today {
+  grid-column: 1 / 2;
+}
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+#city-form {
+  max-width: 80%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 8px;
 }
 
 input[type="submit"] {
@@ -85,21 +106,13 @@ input[type="submit"] {
   color: #3c4043;
   font-family: sans-serif;
   font-size: 16px;
-  height: 100%;
-  line-height: 27px;
-  min-width: 54px;
-  padding: 0 16px;
+  padding: 0 12px;
   text-align: center;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
   background-color: #eaecee;
-}
-
-.autocomplete {
-  position: relative;
-  display: inline-block;
 }
 
 input {
@@ -111,9 +124,11 @@ input {
 }
 
 input[type="text"] {
+  min-width: 8em;
   background-color: #f1f1f1;
   width: 100%;
 }
+
 .autocomplete-item {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -123,6 +138,10 @@ input[type="text"] {
   top: 100%;
   left: 0;
   right: 0;
+  display: grid;
+  grid-template-rows: auto;
+  overflow: auto;
+  max-height: 24vh;
 }
 
 .autocomplete-item div {

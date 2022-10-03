@@ -14,8 +14,9 @@ const submitCity = async () => {
     geolocation.name,
     geolocation.state,
     weatherData.temp,
-    weatherData.weatherDesc,
-    weatherData.humidity
+    weatherData.wind,
+    weatherData.humidity,
+    weatherData.icon
   );
   getBackgroundImage(geolocation.name);
   citySelect.value = "";
@@ -30,27 +31,30 @@ const getWeatherData = async (lat, lon) => {
   const data = await response.json();
 
   const temp = data.main.temp;
-  const weatherDesc = data.weather[0].description;
   const humidity = data.main.humidity;
+  const wind = data.wind.speed;
+  const icon = data.weather[0].icon;
 
-  return { temp, weatherDesc, humidity };
+  return { temp, wind, humidity, icon };
 };
 
 // updates weather data in DOM
-const addToDOM = (city, state, temp, weatherDesc, humidity) => {
+const addToDOM = (city, state, temp, wind, humidity, iconData) => {
   const outputCity = document.getElementById("output-city");
   const outputState = document.getElementById("output-state");
   const outputTemp = document.getElementById("output-temp");
-  const outputWeatherDesc = document.getElementById(
-    "output-weather-description"
-  );
+  const outputWind = document.getElementById("output-wind");
   const outputHumidity = document.getElementById("output-humidity");
+  const outputIcon = document.getElementById("today-icon");
+
+  const icon = `<img src="https://openweathermap.org/img/wn/${iconData}@2x.png" alt="weather icon"/>`;
 
   outputCity.textContent = city;
   outputState.textContent = state;
   outputTemp.textContent = temp;
-  outputWeatherDesc.textContent = weatherDesc;
+  outputWind.textContent = wind;
   outputHumidity.textContent = humidity;
+  outputIcon.innerHTML = icon;
 };
 
 // retrieves background image based on given city
@@ -128,6 +132,13 @@ const geolocation = getGeolocation(city);
 geolocation.then((gData) => {
   const wData = getWeatherData(gData.lat, gData.lon);
   wData.then((dat) => {
-    addToDOM(gData.name, gData.state, dat.temp, dat.weatherDesc, dat.humidity);
+    addToDOM(
+      gData.name,
+      gData.state,
+      dat.temp,
+      dat.wind,
+      dat.humidity,
+      dat.icon
+    );
   });
 });

@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../components/wi-day-cloudy.svg"
+    />
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
@@ -12,12 +17,80 @@
         <div class="" id="div-city">
           <span id="output-city"></span>, <span id="output-state"></span>
         </div>
-        <div class="" id="div-temp"><span id="output-temp"></span> °C</div>
-        <div class="" id="div-desc">
-          <span id="output-weather-description"></span>
-        </div>
-        <div class="" id="div-humid">
+        <div class="day-name">Today</div>
+        <div class="" id="today-temp"><span id="output-temp"></span> °C</div>
+        <div id="today-wind">Wind: <span id="output-wind"></span> km/h</div>
+        <div class="" id="today-humid">
           Humidity: <span id="output-humidity"></span> %
+        </div>
+        <div class="day-icon" id="today-icon">
+          <img src="" alt="" />
+        </div>
+        <div id="forecast">
+          <div id="day-two">
+            <div class="day-name">Mon</div>
+            <div class="day-temp"><span class="day-temp-show">12</span> °C</div>
+            <div class="day-humid">
+              <span class="day-humid-show">78</span> %
+            </div>
+            <div class="day-wind">
+              <span class="day-wind-show">2</span> km/h
+            </div>
+            <div class="day-icon">
+              <img
+                src="https://openweathermap.org/img/wn/10d@2x.png"
+                alt="weather icon"
+              />
+            </div>
+          </div>
+          <div id="day-three">
+            <div class="day-name">Mon</div>
+            <div class="day-temp"><span class="day-temp-show">12</span> °C</div>
+            <div class="day-humid">
+              <span class="day-humid-show">78</span> %
+            </div>
+            <div class="day-wind">
+              <span class="day-wind-show">2</span> km/h
+            </div>
+            <div class="day-icon">
+              <img
+                src="https://openweathermap.org/img/wn/10d@2x.png"
+                alt="weather icon"
+              />
+            </div>
+          </div>
+          <div id="day-four">
+            <div class="day-name">Mon</div>
+            <div class="day-temp"><span class="day-temp-show">12</span> °C</div>
+            <div class="day-humid">
+              <span class="day-humid-show">78</span> %
+            </div>
+            <div class="day-wind">
+              <span class="day-wind-show">2</span> km/h
+            </div>
+            <div class="day-icon">
+              <img
+                src="https://openweathermap.org/img/wn/10d@2x.png"
+                alt="weather icon"
+              />
+            </div>
+          </div>
+          <div id="day-five">
+            <div class="day-name">Mon</div>
+            <div class="day-temp"><span class="day-temp-show">12</span> °C</div>
+            <div class="day-humid">
+              <span class="day-humid-show">78</span> %
+            </div>
+            <div class="day-wind">
+              <span class="day-wind-show">2</span> km/h
+            </div>
+            <div class="day-icon">
+              <img
+                src="https://openweathermap.org/img/wn/10d@2x.png"
+                alt="weather icon"
+              />
+            </div>
+          </div>
         </div>
 
         <form autocomplete="off" id="city-form">

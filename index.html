@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../components/wi-day-cloudy.svg"
+    />
     <title>Weather App</title>
   <script defer src="main.bundle.js"></script></head>
   <body>
@@ -12,17 +17,71 @@
         <div class="" id="div-city">
           <span id="output-city"></span>, <span id="output-state"></span>
         </div>
-        <div class="" id="div-temp"><span id="output-temp"></span> °C</div>
-        <div class="" id="div-desc">
-          <span id="output-weather-description"></span>
-        </div>
-        <div class="" id="div-humid">
-          Humidity: <span id="output-humidity"></span> %
+        <div id="forecast">
+          <div id="today" class="day">
+            <div class="day-name"></div>
+            <div class="day-temp"></div>
+            <div class="day-humid"></div>
+            <div class="day-wind"></div>
+            <div class="day-icon" id="today-icon">
+              <img src="" alt="" />
+            </div>
+          </div>
+          <div id="future">
+            <div id="day-two" class="day">
+              <div class="day-name"></div>
+              <div class="day-temp"></div>
+              <div class="day-humid"></div>
+              <div class="day-wind"></div>
+              <div class="day-icon">
+                <img
+                  src="https://openweathermap.org/img/wn/10d@2x.png"
+                  alt="weather icon"
+                />
+              </div>
+            </div>
+            <div id="day-three" class="day">
+              <div class="day-name"></div>
+              <div class="day-temp"></div>
+              <div class="day-humid"></div>
+              <div class="day-wind"></div>
+              <div class="day-icon">
+                <img
+                  src="https://openweathermap.org/img/wn/10d@2x.png"
+                  alt="weather icon"
+                />
+              </div>
+            </div>
+            <div id="day-four" class="day">
+              <div class="day-name"></div>
+              <div class="day-temp"></div>
+              <div class="day-humid"></div>
+              <div class="day-wind"></div>
+              <div class="day-icon">
+                <img
+                  src="https://openweathermap.org/img/wn/10d@2x.png"
+                  alt="weather icon"
+                />
+              </div>
+            </div>
+            <div id="day-five" class="day">
+              <div class="day-name"></div>
+              <div class="day-temp"></div>
+              <div class="day-humid"></div>
+              <div class="day-wind"></div>
+              <div class="day-icon">
+                <img
+                  src="https://openweathermap.org/img/wn/10d@2x.png"
+                  alt="weather icon"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <form autocomplete="off" id="city-form">
           <div class="autocomplete">
-            <input type="text" name="City" id="city-input" placeholder="city" />
+            <input type="text" name="City" id="city-input" placeholder="City" />
           </div>
           <input type="submit" value="Search" />
         </form>

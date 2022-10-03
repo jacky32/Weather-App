@@ -54,21 +54,7 @@ const addToDOM = (city, state, temp, weatherDesc, humidity) => {
 };
 
 // retrieves background image based on given city
-// currently bing 1000/per month
 const getBackgroundImage = async (city) => {
-  // const response = await fetch(`https://imsea.herokuapp.com/api/1?q=${city}`, {
-  //   mode: "cors",
-  // });
-  // const response = await fetch(
-  //   `https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=${city} city&pageNumber=1&pageSize=10&autoCorrect=true`,
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       "X-RapidAPI-Key": "",
-  //       "X-RapidAPI-Host": "contextualwebsearch-websearch-v1.p.rapidapi.com",
-  //     },
-  //   }
-  // );
   const response = await fetch(
     `https://bing-image-search1.p.rapidapi.com/images/search?q=${city}&count=1`,
     {
@@ -79,13 +65,30 @@ const getBackgroundImage = async (city) => {
       },
     }
   );
-  const imagesData = await response.json();
-  addCityImageToDOM(imagesData.value[0].contentUrl);
+
+  if (await response.ok) {
+    const imagesData = await response.json();
+    addCityImageToDOM(imagesData.value[0].contentUrl);
+  } else {
+    // free api for when bing api runs out of calls
+    const response = await fetch(
+      `https://imsea.herokuapp.com/api/1?q=${city}`,
+      {
+        mode: "cors",
+      }
+    );
+
+    const imagesData = await response.json();
+    addCityImageToDOM(imagesData.value[0].contentUrl);
+  }
 };
 
 // sets city image as a background
 const addCityImageToDOM = (data) => {
   const cityImageURL = data;
+  document.getElementById(
+    "bg-blur"
+  ).style.backgroundImage = `url('${cityImageURL}')`;
   document.querySelector(
     "section"
   ).style.backgroundImage = `url('${cityImageURL}')`;
@@ -94,7 +97,7 @@ const addCityImageToDOM = (data) => {
 // adds a listener to user city input
 const citySelect = document.getElementById("city-input");
 const inputForm = document.getElementById("city-form");
-inputForm.addEventListener("submit", async (e) => {
+inputForm.addEventListener("submit", (e) => {
   e.preventDefault();
   submitCity();
 });

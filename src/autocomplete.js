@@ -20,18 +20,19 @@ export const autocomplete = (inp) => {
     for (let i = 0; i < arr.length; i++) {
       // check if the item starts with the same letters as the text field value:
       if (
-        arr[i].substr(0, inputValue.length).toUpperCase() ==
+        arr[i].substring(0, inputValue.length).toUpperCase() ==
         inputValue.toUpperCase()
       ) {
         const item = document.createElement("DIV");
 
         item.innerHTML =
-          "<strong>" + arr[i].substr(0, inputValue.length) + "</strong>";
-        item.innerHTML += arr[i].substr(inputValue.length);
+          "<strong>" + arr[i].substring(0, inputValue.length) + "</strong>";
+        item.innerHTML += arr[i].substring(inputValue.length);
         item.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        item.addEventListener("click", (e) => {
+        item.addEventListener("click", () => {
           inp.value = item.getElementsByTagName("input")[0].value;
           closeAllLists();
+          inp.parentNode.parentNode.requestSubmit();
         });
         list.appendChild(item);
       }

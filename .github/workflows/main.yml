@@ -9,12 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Build
         run: |
           npm install
           npm run-script build
+          echo "WEATHER: ${{ secrets.WEATHER_API }}"
         env:
           BING_API: ${{ secrets.BING_API }}
           WEATHER_API: ${{ secrets.WEATHER_API }}

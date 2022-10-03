@@ -21,8 +21,7 @@ jobs:
           WEATHER_API: ${{ secrets.WEATHER_API }}
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ github.token }}
           BRANCH: gh-pages
           FOLDER: dist

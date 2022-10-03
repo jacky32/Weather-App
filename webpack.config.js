@@ -16,7 +16,9 @@ module.exports = {
       title: "Weather App",
       template: "src/index.html",
     }),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
   module: {
     rules: [

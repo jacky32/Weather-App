@@ -12,6 +12,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(156, 137, 84);
 }
 
 #bg-blur {
@@ -43,7 +44,7 @@ section {
 #box {
   background-color: rgb(218, 191, 118);
   position: absolute;
-  top: 10vh;
+  top: 8vh;
   padding: 20px;
   border-radius: 4px;
   max-width: 80vw;
@@ -57,6 +58,7 @@ section {
 
 #div-city > * {
   font-size: 20px;
+  font-weight: 600;
 }
 
 .day-name > *,
@@ -66,15 +68,28 @@ section {
 
 #forecast {
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-rows: 1fr 8px 1fr;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 #future {
+  grid-row: 3;
+  grid-column: 1 / 6;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   overflow: auto;
+}
+
+#divider {
+  grid-row: 2;
+  grid-column: 1 / 6;
+  background-color: rgb(180, 159, 100);
+  border-radius: 10px;
+  text-align: center;
 }
 
 .day {
@@ -86,8 +101,29 @@ section {
   padding-right: 10px;
 }
 
+@media screen and (width < 420px) {
+  #today {
+    grid-column: 1 / 6;
+  }
+}
+
+@media screen and (420px <= width <= 720px) {
+  #today {
+    grid-column: 2 / 5;
+  }
+}
+
+@media screen and (width > 720px) {
+  #today {
+    grid-column: 2 / 5;
+    margin-right: 32px;
+    margin-left: 32px;
+  }
+}
+
 #today {
-  grid-column: 1 / 2;
+  background-color: rgb(143, 180, 100);
+  font-size: 18px;
 }
 
 .autocomplete {
@@ -102,6 +138,10 @@ section {
   justify-content: center;
   align-items: stretch;
   gap: 8px;
+}
+
+.day-name {
+  font-weight: bold;
 }
 
 input[type="submit"] {

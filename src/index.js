@@ -52,10 +52,7 @@ const getFutureWeatherData = async (lat, lon) => {
   const data = unsortedData.filter((day) => {
     const date = new Date(day.dt_txt);
     const today = new Date(Date.now());
-    if (
-      date.getDay() == today.getDay() &&
-      date.getHours() == today.getHours()
-    ) {
+    if (date.getDay() == today.getDay()) {
       return true;
     }
     const hour = date.getHours();
@@ -95,20 +92,43 @@ const addWeatherData = (
   for (let i = 0; i < days.length; i++) {
     days[i].childNodes.forEach((item) => {
       if (item.nodeType == 3) return;
-      if (item.classList.contains("day-name")) {
-        item.textContent = dayNames[i];
-      } else if (item.classList.contains("day-temp")) {
-        item.textContent = dayTemps[i] + " °C";
-      } else if (item.classList.contains("day-humid")) {
-        item.textContent = dayHumids[i] + " %";
-      } else if (item.classList.contains("day-wind")) {
-        item.textContent = dayWinds[i] + " km/h";
-      } else if (item.classList.contains("day-icon")) {
-        const icon = `<img src="https://openweathermap.org/img/wn/${dayIcons[i]}@2x.png" alt="weather icon"/>`;
-        item.innerHTML = icon;
-      } else {
-        console.log(item);
+      const itemClass = Array.from(item.classList)[0];
+      switch (itemClass) {
+        case "day-name":
+          item.textContent = dayNames[i];
+          break;
+        case "day-temp":
+          item.textContent = `${dayTemps[i]}`.substring(0, 4) + " °C";
+          break;
+        case "day-humid":
+          item.textContent = dayHumids[i] + " %";
+          break;
+        case "day-wind":
+          item.textContent = `${dayWinds[i]}`.substring(0, 3) + " km/h";
+          break;
+        case "day-icon":
+          const icon = `<img src="https://openweathermap.org/img/wn/${dayIcons[i]}@2x.png" alt="weather icon"/>`;
+          item.innerHTML = icon;
+          break;
+        default:
+          console.log(item);
+          break;
       }
+
+      // if (item.classList.contains("day-name")) {
+      //   item.textContent = dayNames[i];
+      // } else if (item.classList.contains("day-temp")) {
+      //   item.textContent = `${dayTemps[i]}`.substring(0, 4) + " °C";
+      // } else if (item.classList.contains("day-humid")) {
+      //   item.textContent = dayHumids[i] + " %";
+      // } else if (item.classList.contains("day-wind")) {
+      //   item.textContent = `${dayWinds[i]}`.substring(0, 3) + " km/h";
+      // } else if (item.classList.contains("day-icon")) {
+      //   const icon = `<img src="https://openweathermap.org/img/wn/${dayIcons[i]}@2x.png" alt="weather icon"/>`;
+      //   item.innerHTML = icon;
+      // } else {
+      //   console.log(item);
+      // }
     });
   }
 };

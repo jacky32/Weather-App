@@ -33,10 +33,13 @@ const getFutureWeatherData = async (lat, lon) => {
   );
   const listedData = await response.json();
   const unsortedData = listedData.list;
+  let hasToday = false;
   const data = unsortedData.filter((day) => {
     const date = new Date(day.dt_txt);
     const today = new Date(Date.now());
     if (date.getDay() == today.getDay()) {
+      if (hasToday == true) return false;
+      hasToday = true;
       return true;
     }
     const hour = date.getHours();
